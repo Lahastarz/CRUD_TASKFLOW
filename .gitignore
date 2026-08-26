@@ -1,0 +1,27 @@
+# Secrets - NEVER commit these
+.env
+
+# Virtual environment
+.venv/
+venv/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build artifacts
+*.egg-info/
+dist/
+build/
+
+# Test coverage reports
+.coverage
+htmlcov/
+
+# OS-specific junk
+.DS_Store
