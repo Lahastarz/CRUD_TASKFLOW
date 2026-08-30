@@ -3,3 +3,6 @@ pip
 PyJWT
 pydantic
 sqlalchemy
+asyncpg
+alembic
+redis
