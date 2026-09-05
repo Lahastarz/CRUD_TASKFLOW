@@ -6,3 +6,5 @@ sqlalchemy
 asyncpg
 alembic
 redis
+uvicorn
+fastapi
