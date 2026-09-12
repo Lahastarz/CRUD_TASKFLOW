@@ -1,7 +1,7 @@
 argon2-cffi
-pip
 PyJWT
 pydantic
+pydantic[email]
 sqlalchemy
 asyncpg
 alembic
@@ -9,3 +9,5 @@ redis
 uvicorn
 fastapi
 slowapi
+structlog
+python-multipart

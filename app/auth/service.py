@@ -39,10 +39,11 @@ async def login_user(db: AsyncSession, email:str, password:str)->dict:
 
     return {"access_token": access_token, "refresh_token": refresh_token}
 
-async def logout_user(refresh_token:str)-> None:
+async def logout_user(refresh_token: str) -> None:
     try:
-        payload = decode_token(refresh_token,expected_type=TokenType.REFRESH)
+        payload = decode_token(refresh_token, expected_type=TokenType.REFRESH)
         jti = payload["jti"]
-        await revoke_refresh_token(jti)
+        user_id = payload["sub"]
+        await revoke_refresh_token(jti, user_id, reason="user_logged_out")
     except jwt.PyJWTError:
         pass

@@ -75,7 +75,7 @@ async def refresh_access_token(refresh_token:str)-> dict:
     
     # I will now issue brand new refresh, access token so that rotation can happen
     user_id = payload["sub"]
-    await revoke_refresh_token(jti)
+    await revoke_refresh_token(jti, user_id, reason="rotation")
 
     new_access_token = create_access_token(user_id)
     new_refresh_token = await create_refresh_token(user_id)
