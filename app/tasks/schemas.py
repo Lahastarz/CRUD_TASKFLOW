@@ -10,7 +10,7 @@ class TaskCreate(BaseModel):
 
 
 class TaskUpdate(BaseModel):
-    title: str
+    title: str|None = None
     description: str|None = None
     due_date: datetime|None = None
     status: TaskStatus|None = None

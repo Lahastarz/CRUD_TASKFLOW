@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.core.security import get_user_id_from_token, TokenType
 from app.users.models import User
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/token")
 
 async def get_current_user(
         token: str = Depends(oauth2_scheme),
