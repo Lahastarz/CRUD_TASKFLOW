@@ -11,3 +11,4 @@ fastapi
 slowapi
 structlog
 python-multipart
+pydantic-settings
