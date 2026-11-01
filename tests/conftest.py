@@ -4,10 +4,12 @@ from testcontainers.postgres import PostgresContainer
 # from testcontainers.community.postgres import PostgresContainer
 import subprocess
 import os
+import uuid
 from httpx import AsyncClient, ASGITransport
 from app.main import app
 from app.db.session import get_db
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from app.middleware.rate_limit import limiter
 
 @pytest.fixture(scope="session")
 def postgres_container():
@@ -38,3 +40,23 @@ async def client(migrated_postgres):
         yield ac
     app.dependency_overrides.clear()
     await test_engine.dispose()
+
+
+@pytest.fixture(autouse=True)
+def disable_rate_limit():
+    limiter.enabled=False
+    yield
+    limiter.enabled=True
+
+@pytest.fixture
+def make_headers(client):
+    async def _make(email=None, password="Pass123!"):
+        email=email or f"user-{uuid.uuid4().hex[:8]}@example.com"
+        await client.post("/auth/register", json={"email":email, "password":password})
+        login=await client.post("/auth/login", json={"email":email, "password":password})
+        return {"Authorization":f"Bearer {login.json()['access_token']}"}
+    return _make
+
+@pytest_asyncio.fixture
+async def auth_headers(make_headers):
+    return await make_headers()

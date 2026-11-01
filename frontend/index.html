@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TaskFlow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">TaskFlow</div>
+  <div id="userBadge" class="user-badge hidden">
+    <span id="userEmail"></span>
+    <button id="logoutBtn" class="btn-ghost">Log out</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- AUTH VIEW -->
+  <section id="authView" class="auth-view">
+    <div class="auth-card">
+      <div class="tabs">
+        <button class="tab active" data-tab="login">Log in</button>
+        <button class="tab" data-tab="register">Register</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label>Email
+          <input type="email" id="loginEmail" required autocomplete="username" />
+        </label>
+        <label>Password
+          <input type="password" id="loginPassword" required autocomplete="current-password" />
+        </label>
+        <button type="submit" class="btn-primary">Log in</button>
+        <p class="form-note" id="loginNote"></p>
+      </form>
+
+      <form id="registerForm" class="auth-form hidden">
+        <label>Email
+          <input type="email" id="registerEmail" required autocomplete="username" />
+        </label>
+        <label>Password
+          <input type="password" id="registerPassword" required autocomplete="new-password" minlength="8" />
+        </label>
+        <button type="submit" class="btn-primary">Create account</button>
+        <p class="form-note" id="registerNote"></p>
+      </form>
+    </div>
+    <p class="auth-footnote">Your session token is kept in memory only — refreshing this page logs you out. That's deliberate: it's the same reasoning that keeps tokens out of localStorage, to limit what a script-injection attack could steal.</p>
+  </section>
+
+  <!-- BOARD VIEW -->
+  <section id="boardView" class="board-view hidden">
+    <form id="newTaskForm" class="new-task-form">
+      <input type="text" id="newTaskTitle" placeholder="Add a task..." required />
+      <input type="text" id="newTaskDesc" placeholder="Description (optional)" />
+      <button type="submit" class="btn-primary">Add</button>
+    </form>
+
+    <div class="board">
+      <div class="column" data-status="todo">
+        <div class="column-head">
+          <span class="column-title">To do</span>
+          <span class="column-count" id="count-todo">0</span>
+        </div>
+        <div class="column-body" id="col-todo"></div>
+      </div>
+
+      <div class="column" data-status="in_progress">
+        <div class="column-head">
+          <span class="column-title">In progress</span>
+          <span class="column-count" id="count-in_progress">0</span>
+        </div>
+        <div class="column-body" id="col-in_progress"></div>
+      </div>
+
+      <div class="column" data-status="done">
+        <div class="column-head">
+          <span class="column-title">Done</span>
+          <span class="column-count" id="count-done">0</span>
+        </div>
+        <div class="column-body" id="col-done"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
